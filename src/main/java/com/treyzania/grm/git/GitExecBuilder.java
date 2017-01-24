@@ -3,11 +3,11 @@ package com.treyzania.grm.git;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 
-public abstract class GitExecBuilder {
+public abstract class GitExecBuilder<R> {
 	
 	private static String gitCommand = "git";
 	
-	private Repository repo;
+	protected final Repository repo;
 	
 	public GitExecBuilder(Repository repo) {
 		this.repo = repo;
@@ -29,7 +29,7 @@ public abstract class GitExecBuilder {
 		return gitCommand;
 	}
 	
-	public abstract Process execute() throws IOException;
+	public abstract R execute() throws IOException;
 	
 	public static void setGitBaseCommand(String cmd) {
 		gitCommand = cmd;

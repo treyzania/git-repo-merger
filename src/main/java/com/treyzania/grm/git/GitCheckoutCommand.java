@@ -2,7 +2,7 @@ package com.treyzania.grm.git;
 
 import java.io.IOException;
 
-public class GitCheckoutCommand extends GitExecBuilder {
+public class GitCheckoutCommand extends GitExecBuilder<Void> {
 	
 	private SourceCommit commit; 
 	
@@ -15,12 +15,20 @@ public class GitCheckoutCommand extends GitExecBuilder {
 	}
 
 	@Override
-	public Process execute() throws IOException {
+	public Void execute() throws IOException {
 		
 		ProcessBuilder pb = this.builder();
 		pb.command(this.git(), "checkout", this.commit.hash);
 		
-		return pb.start();
+		Process p = pb.start();
+		
+		try {
+			p.waitFor();
+		} catch (InterruptedException e) {
+			throw new IOException("Interrupted while waiting for subprocess to complete.", e);
+		}
+		
+		return null;
 		
 	}
 	
