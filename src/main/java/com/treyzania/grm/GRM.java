@@ -1,6 +1,7 @@
 package com.treyzania.grm;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -12,7 +13,7 @@ public class GRM {
 	
 	public static void main(String[] args) {
 		
-		if (args.length < 3) {
+		if (args.length < 2) {
 			
 			System.out.println("grm: check your usage, you're doing something wrong");
 			
@@ -32,8 +33,15 @@ public class GRM {
 			
 		});
 		
-		Migrator migrator = new Migrator(dest, maps);
-		
+		try {
+			
+			// Actually do the work.
+			Migrator migrator = new Migrator(dest, maps);
+			migrator.execute();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
