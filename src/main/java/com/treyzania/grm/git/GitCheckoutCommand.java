@@ -2,7 +2,7 @@ package com.treyzania.grm.git;
 
 import java.io.IOException;
 
-public class GitCheckoutCommand extends GitExecBuilder<Void> {
+public class GitCheckoutCommand extends GitExecWrapper<Void> {
 	
 	private SourceCommit commit; 
 	

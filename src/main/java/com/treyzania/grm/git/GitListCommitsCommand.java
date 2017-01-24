@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class GitListCommitsCommand extends GitExecBuilder<List<SourceCommit>> {
+public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 	
 	private static final String KEY_HASH = "hash";
 	private static final String KEY_AUTHOR_TIME = "AUTHOR_UNIX";

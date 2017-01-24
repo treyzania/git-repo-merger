@@ -3,13 +3,13 @@ package com.treyzania.grm.git;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 
-public abstract class GitExecBuilder<R> {
+public abstract class GitExecWrapper<R> {
 	
 	private static String gitCommand = "git";
 	
 	protected final Repository repo;
 	
-	public GitExecBuilder(Repository repo) {
+	public GitExecWrapper(Repository repo) {
 		this.repo = repo;
 	}
 	

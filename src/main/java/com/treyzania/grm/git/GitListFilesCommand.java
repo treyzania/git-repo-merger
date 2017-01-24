@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GitListFilesCommand extends GitExecBuilder<List<File>> {
+public class GitListFilesCommand extends GitExecWrapper<List<File>> {
 	
 	public GitListFilesCommand(Repository repo) {
 		super(repo);
