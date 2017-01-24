@@ -17,7 +17,7 @@ public abstract class GitExecWrapper<R> {
 		
 		ProcessBuilder pb = new ProcessBuilder();
 		
-		pb.directory(this.repo.getRepoFile());
+		pb.directory(this.repo.root);
 		pb.command(gitCommand); // Does nothing bad by default.
 		pb.redirectError(Redirect.INHERIT); // We want the errors to pass through.
 		

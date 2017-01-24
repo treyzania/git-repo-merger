@@ -6,17 +6,13 @@ import java.util.List;
 
 public class Repository {
 	
-	private File root;
+	public final File root;
 	
 	private SourceCommit currentCommit = null;
 	private List<SourceCommit> commits = null;
 	
 	public Repository(File f) {
 		this.root = f;
-	}
-	
-	public File getRepoFile() {
-		return this.root;
 	}
 	
 	public SourceCommit getCurrentCommit() {
