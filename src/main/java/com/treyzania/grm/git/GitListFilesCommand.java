@@ -24,10 +24,7 @@ public class GitListFilesCommand extends GitExecWrapper<List<File>> {
 		List<File> files = new ArrayList<>();
 		
 		lines.forEachRemaining(s -> {
-			
 			files.add(new File(s));
-			System.err.println(s);
-			
 		});
 		
 		lines.close();

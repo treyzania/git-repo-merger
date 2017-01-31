@@ -128,6 +128,7 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 			String fixedBody = body.toString().trim();
 			SourceCommit sc = new SourceCommit(this.repo, hash, aName, cName, aEmail, cEmail, aTime, cTime, fixedBody);
 			commits.add(sc);
+			System.out.println("Found commit : " + hash + " in " + this.repo.root.getAbsolutePath());
 			blockLines.close();
 			
 		}

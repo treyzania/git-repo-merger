@@ -20,6 +20,7 @@ public class GitCheckoutCommand extends GitExecWrapper<Void> {
 		ProcessBuilder pb = this.builder();
 		pb.command(this.git(), "checkout", this.commit.hash);
 		
+		System.out.println("CHECKING OUT : " + this.commit.hash + " in " + this.repo.root.getAbsolutePath());
 		Process p = pb.start();
 		
 		try {

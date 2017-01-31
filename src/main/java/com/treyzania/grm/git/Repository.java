@@ -27,7 +27,7 @@ public class Repository {
 	 */
 	public boolean checkout(SourceCommit commit) throws IOException {
 		
-		if (commit.repo == this) throw new IllegalArgumentException("This commit isn't from this repo.");
+		if (commit.repo != this) throw new IllegalArgumentException("This commit isn't from this repo.");
 		if (commit == this.currentCommit) return true;
 		
 		GitCheckoutCommand cmd = new GitCheckoutCommand(commit);;
