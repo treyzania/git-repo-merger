@@ -30,8 +30,9 @@ public class Repository {
 		if (commit.repo != this) throw new IllegalArgumentException("This commit isn't from this repo.");
 		if (commit == this.currentCommit) return true;
 		
-		GitCheckoutCommand cmd = new GitCheckoutCommand(commit);;
+		GitCheckoutCommand cmd = new GitCheckoutCommand(commit);
 		cmd.execute(); // Just run it straight away.
+		this.currentCommit = commit;
 		return false;
 		
 	}
