@@ -29,7 +29,7 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 	public List<SourceCommit> execute() throws IOException {
 		
 		ProcessBuilder pb = this.builder();
-		pb.command(this.git(), "log",
+		pb.command(this.git(), "log", "--all",
 			"--pretty=format:" +
 			KEY_HASH + " %H%n" +
 			KEY_AUTHOR_TIME + " %at%n" +

@@ -17,14 +17,14 @@ public class GitListFilesCommand extends GitExecWrapper<List<File>> {
 	public List<File> execute() throws IOException {
 		
 		ProcessBuilder pb = this.builder();
-		pb.command(this.git(), "ls-tree", "-r", "master", "--name-only");
+		pb.command(this.git(), "show", "--pretty=format:", "--name-only");
 		
 		Process p = pb.start();
 		Scanner lines = new Scanner(new BufferedInputStream(p.getInputStream()));
 		List<File> files = new ArrayList<>();
 		
 		lines.forEachRemaining(s -> {
-			files.add(new File(s));
+			files.add(new File(this.repo.root, s));
 		});
 		
 		lines.close();

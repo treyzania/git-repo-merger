@@ -32,7 +32,7 @@ public final class Mapping {
 	public void cleanDestinationDirectory() throws IOException {
 		
 		this.dest.delete();
-		this.dest.createNewFile();
+		this.dest.mkdirs();
 		
 	}
 	
@@ -41,17 +41,18 @@ public final class Mapping {
 		this.cleanDestinationDirectory();
 		
 		Path rootPath = this.source.root.toPath();
+		Path destPath = this.dest.toPath();
 		List<File> copied = new ArrayList<>();
 		
 		for (File f : this.source.getTrackedFiles()) {
 			
 			// Do some work to figure out the new path.
-			Path destPath = rootPath.resolve(f.toPath().relativize(rootPath));
-			File f2 = destPath.toFile();
+			Path f2Path = f.toPath().relativize(rootPath).resolve(destPath);
+			File f2 = f2Path.toFile();
 			
 			// Commons IO does all the heavy lifting.
 			System.out.println("copying: " + f.getAbsolutePath() + " -> " + f2.getAbsolutePath());
-			FileUtils.copyDirectory(f, f2, true);
+			FileUtils.copyFile(f, f2, true);
 			copied.add(f2);
 			
 		}
