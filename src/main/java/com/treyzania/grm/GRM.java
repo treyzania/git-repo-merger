@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import com.treyzania.grm.git.GitCheckoutMasterCommand;
 import com.treyzania.grm.git.Repository;
 
 public class GRM {
@@ -29,7 +30,20 @@ public class GRM {
 			
 			String[] parts = m.split(":");
 			File src = new File(parts[0]);
-			maps.add(new Mapping(new Repository(src), new File(dest.root, parts[1])));
+			
+			Repository r = new Repository(src);
+			
+			GitCheckoutMasterCommand cm = new GitCheckoutMasterCommand(r);
+			try {
+				cm.execute();
+			} catch (IOException e) {
+				
+				System.out.println("Failed to checkout master on repo: " + src.getAbsolutePath());
+				System.exit(-1);
+				
+			}
+			
+			maps.add(new Mapping(r, new File(dest.root, parts[1])));
 			
 		});
 		

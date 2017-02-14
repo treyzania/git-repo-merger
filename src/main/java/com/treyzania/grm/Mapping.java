@@ -47,7 +47,7 @@ public final class Mapping {
 		for (File f : this.source.getTrackedFiles()) {
 			
 			// Do some work to figure out the new path.
-			Path f2Path = f.toPath().relativize(rootPath).resolve(destPath);
+			Path f2Path = destPath.resolve(rootPath.relativize(f.toPath()));
 			File f2 = f2Path.toFile();
 			
 			// Commons IO does all the heavy lifting.

@@ -48,10 +48,10 @@ public class Migrator {
 				
 				// Checkout the commit from the source, then copy them to the new Repo.
 				mg.getRepo().checkout(mg.commit);
-				List<File> copied = mg.mapping.updateDesintation();
+				mg.mapping.updateDesintation();
 				
 				// Stage the changes.
-				GitAddCommand addCmd = new GitAddCommand(this.dest, copied);
+				GitAddCommand addCmd = new GitAddCommand(this.dest);
 				addCmd.execute();
 				
 				// Commit to the new repo.
