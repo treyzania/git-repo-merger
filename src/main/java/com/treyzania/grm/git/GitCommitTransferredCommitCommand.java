@@ -42,8 +42,8 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 		
 		// Put together the environmental vars.
 		Map<String, String> env = pb.environment();
-		env.put(ENV_VAR_GIT_AUTHOR_DATE, (this.source.authoredDate.getTime() / 1000) + " " + tzStr); // XXX tzStr
-		env.put(ENV_VAR_GIT_COMMIT_DATE, (this.source.committedDate.getTime() / 1000) + " " + tzStr); // XXX tzStr
+		//env.put(ENV_VAR_GIT_AUTHOR_DATE, (this.source.authoredDate.getTime() / 1000) + " " + tzStr); // XXX tzStr
+		//env.put(ENV_VAR_GIT_COMMIT_DATE, (this.source.committedDate.getTime() / 1000) + " " + tzStr); // XXX tzStr
 		
 		// Put together the settings arguments.
 		args.add("--author=\"" + this.source.author + " <" + this.source.authorEmail + ">\"");
@@ -68,7 +68,7 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 		try {
 			
 			int res = p.waitFor();
-			if (res != 0) throw new IOException("Subprocess to commit failed with exit code: " + res);
+			//if (res != 0) throw new IOException("Subprocess to commit failed with exit code: " + res);
 			
 		} catch (InterruptedException e) {
 			throw new IOException("Interrupted while executing subprocess.", e);
