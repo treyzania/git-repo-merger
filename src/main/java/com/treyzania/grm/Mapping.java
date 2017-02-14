@@ -46,6 +46,20 @@ public final class Mapping {
 		
 		for (File f : this.source.getTrackedFiles()) {
 			
+			if (!f.exists()) {
+				
+				System.out.println("couldn't copy, not real: " + f.getAbsolutePath());
+				
+				try {
+					Thread.sleep(5 * 1000L);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				continue;
+				
+			}
+			
 			// Do some work to figure out the new path.
 			Path f2Path = destPath.resolve(rootPath.relativize(f.toPath()));
 			File f2 = f2Path.toFile();

@@ -45,7 +45,7 @@ public class Repository {
 		
 		if (this.currentCommit == null) throw new IllegalStateException("Undefined current commit, use a real one before listing tracked files.");
 		
-		GitListFilesCommand cmd = new GitListFilesCommand(this);
+		GitListFilesCommand cmd = new GitListFilesCommand(this, this.currentCommit);
 		return cmd.execute();
 		
 	}

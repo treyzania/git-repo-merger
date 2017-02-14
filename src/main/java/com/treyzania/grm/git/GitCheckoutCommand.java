@@ -24,7 +24,10 @@ public class GitCheckoutCommand extends GitExecWrapper<Void> {
 		Process p = pb.start();
 		
 		try {
-			p.waitFor();
+			
+			int code = p.waitFor();
+			if (code != 0) throw new IOException("Checkout failed with code: " + code);
+			
 		} catch (InterruptedException e) {
 			throw new IOException("Interrupted while waiting for subprocess to complete.", e);
 		}

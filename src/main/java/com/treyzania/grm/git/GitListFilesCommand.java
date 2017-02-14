@@ -9,15 +9,21 @@ import java.util.Scanner;
 
 public class GitListFilesCommand extends GitExecWrapper<List<File>> {
 	
-	public GitListFilesCommand(Repository repo) {
+	private SourceCommit commit;
+	
+	public GitListFilesCommand(Repository repo, SourceCommit commit) {
+		
 		super(repo);
+		
+		this.commit = commit;
+		
 	}
 
 	@Override
 	public List<File> execute() throws IOException {
 		
 		ProcessBuilder pb = this.builder();
-		pb.command(this.git(), "show", "--pretty=format:", "--name-only");
+		pb.command(this.git(), "ls-tree", "-r", this.commit.hash, "--name-only");
 		
 		Process p = pb.start();
 		Scanner lines = new Scanner(new BufferedInputStream(p.getInputStream()));
@@ -28,6 +34,13 @@ public class GitListFilesCommand extends GitExecWrapper<List<File>> {
 		});
 		
 		lines.close();
+		
+		// For good measure.
+		try {
+			p.waitFor();
+		} catch (InterruptedException e) {
+			// ???
+		}
 		
 		return files;
 		
