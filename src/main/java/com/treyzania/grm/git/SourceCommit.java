@@ -38,7 +38,7 @@ public final class SourceCommit implements Comparable<SourceCommit> {
 		try {
 			
 			Date mine = sdf.parse(this.authoredDate);
-			Date theirs = sdf.parse(this.authoredDate);
+			Date theirs = sdf.parse(o.authoredDate);
 			
 			return Long.compare(mine.getTime(), theirs.getTime());
 			

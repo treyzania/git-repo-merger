@@ -2,10 +2,8 @@ package com.treyzania.grm.git;
 
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +47,7 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 		Iterator<String> iter = Arrays.asList(this.source.body.split("\\n")).iterator();
 		String first = iter.next();
 		args.add("-m");
-		args.add("'" + this.firstLinePrefix + ": " + first + "'");
+		args.add(this.firstLinePrefix + ": " + first);
 		iter.forEachRemaining(l -> {
 			
 			args.add("-m");
@@ -65,7 +63,9 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 		try {
 			
 			int res = p.waitFor();
-			//if (res != 0) throw new IOException("Subprocess to commit failed with exit code: " + res);
+			if (res != 0) {
+				System.out.println("WARNING: subprocess exited with code " + res);
+			}
 			
 		} catch (InterruptedException e) {
 			throw new IOException("Interrupted while executing subprocess.", e);

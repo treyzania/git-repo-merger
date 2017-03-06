@@ -54,6 +54,9 @@ public class Repository {
 		
 		if (this.commits == null) {
 			
+			GitCheckoutMasterCommand gcm = new GitCheckoutMasterCommand(this);
+			gcm.execute();
+			
 			GitListCommitsCommand cmd = new GitListCommitsCommand(this);
 			this.commits = cmd.execute();
 			

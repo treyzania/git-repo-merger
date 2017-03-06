@@ -23,10 +23,7 @@ public final class Mapping {
 	}
 	
 	public String getSuffix() {
-		
-		String[] parts = this.dest.getAbsolutePath().split(File.pathSeparator);
-		return parts[parts.length - 1];
-		
+		return this.dest.getName();
 	}
 	
 	public void cleanDestinationDirectory() throws IOException {
