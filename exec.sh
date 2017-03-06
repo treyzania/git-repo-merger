@@ -6,7 +6,6 @@ cd $PROJPATH
 mvn clean package > /dev/null
 popd > /dev/null
 
-echo DANK $@
-
+echo "Done setup."
 JARPATH=$(realpath $PROJPATH/target/git-repo-merger-*.jar)
 java -cp $JARPATH com.treyzania.grm.GRM $@

@@ -65,7 +65,7 @@ public final class Mapping {
 			File f2 = f2Path.toFile();
 			
 			// Commons IO does all the heavy lifting.
-			System.out.println("copying: " + f.getAbsolutePath() + " -> " + f2.getAbsolutePath());
+			//System.out.println("copying: " + f.getAbsolutePath() + " -> " + f2.getAbsolutePath());
 			FileUtils.copyFile(f, f2, true);
 			copied.add(f2);
 			

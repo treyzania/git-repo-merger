@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.treyzania.grm.git.GitCheckoutMasterCommand;
+import com.treyzania.grm.git.GitInitCommand;
 import com.treyzania.grm.git.Repository;
 
 public class GRM {
@@ -17,6 +18,7 @@ public class GRM {
 		if (args.length < 2) {
 			
 			System.out.println("grm: check your usage, you're doing something wrong");
+			return;
 			
 		}
 		
@@ -24,6 +26,13 @@ public class GRM {
 		
 		String destPath = ai.next();
 		Repository dest = new Repository(new File(destPath));
+		GitInitCommand init = new GitInitCommand(dest);
+		try {
+			init.execute();
+		} catch (IOException e) {
+			System.out.println("Couldn't initialize destination repository.");
+			return;
+		}
 		
 		List<Mapping> maps = new ArrayList<>();
 		ai.forEachRemaining(m -> {

@@ -18,7 +18,7 @@ public class GitCheckoutCommand extends GitExecWrapper<Void> {
 	public Void execute() throws IOException {
 		
 		ProcessBuilder pb = this.builder();
-		pb.command(this.git(), "checkout", this.commit.hash);
+		pb.command(this.git(), "checkout", "--force", this.commit.hash);
 		
 		System.out.println("CHECKING OUT : " + this.commit.hash + " in " + this.repo.root.getAbsolutePath());
 		Process p = pb.start();
