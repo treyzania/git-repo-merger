@@ -15,8 +15,6 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 	private static final String ENV_VAR_GIT_COMMIT_DATE = "GIT_COMMITTER_DATE";
 	private static final String ENV_VAR_GIT_AUTHOR_DATE = "GIT_AUTHOR_DATE";
 	
-	private static final SimpleDateFormat tz = new SimpleDateFormat("Z"); // XXX
-	
 	private SourceCommit source;
 	private String firstLinePrefix;
 	
@@ -32,7 +30,6 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 	@Override
 	public Void execute() throws IOException {
 		
-		String tzStr = tz.format(new Date()); // XXX Hacky shit to get the time zone.  TODO Make this pull it in ISO8601 from the original source.
 		ProcessBuilder pb = this.builder();
 		
 		// Specify the command itself.
@@ -42,8 +39,8 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 		
 		// Put together the environmental vars.
 		Map<String, String> env = pb.environment();
-		//env.put(ENV_VAR_GIT_AUTHOR_DATE, (this.source.authoredDate.getTime() / 1000) + " " + tzStr); // XXX tzStr
-		//env.put(ENV_VAR_GIT_COMMIT_DATE, (this.source.committedDate.getTime() / 1000) + " " + tzStr); // XXX tzStr
+		env.put(ENV_VAR_GIT_AUTHOR_DATE, this.source.authoredDate);
+		env.put(ENV_VAR_GIT_COMMIT_DATE, this.source.committedDate);
 		
 		// Put together the settings arguments.
 		args.add("--author=\"" + this.source.author + " <" + this.source.authorEmail + ">\"");
@@ -56,7 +53,7 @@ public class GitCommitTransferredCommitCommand extends GitExecWrapper<Void> {
 		iter.forEachRemaining(l -> {
 			
 			args.add("-m");
-			args.add("'" + l + "'");
+			args.add(l);
 			
 		});
 		

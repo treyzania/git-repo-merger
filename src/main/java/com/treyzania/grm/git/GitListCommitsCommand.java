@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,10 +31,10 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 		pb.command(this.git(), "log", "--all",
 			"--pretty=format:" +
 			KEY_HASH + " %H%n" +
-			KEY_AUTHOR_TIME + " %at%n" +
+			KEY_AUTHOR_TIME + " %ad%n" +
 			KEY_AUTHOR_EMAIL + " %ae%n" + 
 			KEY_AUTHOR_NAME + " %an%n" +
-			KEY_COMMITTER_TIME + " %ct%n" +
+			KEY_COMMITTER_TIME + " %cd%n" +
 			KEY_COMMITTER_EMAIL + " %ce%n" +
 			KEY_COMMITTER_NAME + " %cn%n" +
 			HEADER_BODY + "%n%s%n%b%n" +
@@ -58,10 +57,10 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 			Scanner blockLines = new Scanner(new StringReader(block));
 			
 			String hash = null;
-			Date aTime = null;
+			String aTime = null;
 			String aEmail = null;
 			String aName = null;
-			Date cTime = null;
+			String cTime = null;
 			String cEmail = null;
 			String cName = null;
 			StringBuilder body = new StringBuilder();
@@ -69,7 +68,7 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 			while (blockLines.hasNextLine()) {
 				
 				String line = blockLines.nextLine();
-				String[] parts = line.split(" ");
+				String[] parts = line.split(" ", 2);
 				
 				switch (parts[0]) {
 				
@@ -78,7 +77,7 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 					break;
 				
 				case KEY_AUTHOR_TIME:
-					aTime = new Date(Long.parseLong(parts[1]));
+					aTime = parts[1];
 					break;
 				
 				case KEY_AUTHOR_EMAIL:
@@ -90,7 +89,7 @@ public class GitListCommitsCommand extends GitExecWrapper<List<SourceCommit>> {
 					break;
 				
 				case KEY_COMMITTER_TIME:
-					cTime = new Date(Long.parseLong(parts[1]));
+					cTime = parts[1];
 					break;
 				
 				case KEY_COMMITTER_EMAIL:

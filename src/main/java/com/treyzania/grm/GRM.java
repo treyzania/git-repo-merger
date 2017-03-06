@@ -30,8 +30,10 @@ public class GRM {
 		try {
 			init.execute();
 		} catch (IOException e) {
+			
 			System.out.println("Couldn't initialize destination repository.");
 			return;
+			
 		}
 		
 		List<Mapping> maps = new ArrayList<>();
