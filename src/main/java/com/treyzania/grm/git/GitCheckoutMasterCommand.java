@@ -13,7 +13,7 @@ public class GitCheckoutMasterCommand extends GitExecWrapper<Void> {
 		
 		ProcessBuilder pb = this.builder();
 		
-		pb.command(this.git(), "checkout", "master");
+		pb.command(this.git(), "checkout", "--force", "master");
 		
 		try {
 			

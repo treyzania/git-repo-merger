@@ -28,8 +28,8 @@ public final class Mapping {
 	
 	public void cleanDestinationDirectory() throws IOException {
 		
-		this.dest.delete();
-		this.dest.mkdirs();
+		FileUtils.deleteDirectory(this.dest);
+		FileUtils.forceMkdir(this.dest);
 		
 	}
 	
